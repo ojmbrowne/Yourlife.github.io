@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f5f7">
+  <meta name="description" content="yourlife — your personal school, fitness and life planner.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <title>yourlife.</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="yourlife home">yourlife<span>.</span></a>
+      <button class="avatar" id="settingsShortcut" aria-label="Open settings">Y</button>
+    </header>
+
+    <main id="mainContent">
+      <section class="page active" id="page-home">
+        <div class="intro">
+          <p class="eyebrow" id="todayLabel">YOUR DAY</p>
+          <h1>Good day.</h1>
+          <p class="muted">A little structure goes a long way.</p>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card"><span class="stat-icon blue">▦</span><strong id="todayCount">0</strong><span>Today's events</span></article>
+          <article class="stat-card"><span class="stat-icon green">✓</span><strong id="taskCount">0/5</strong><span>Routine tasks done</span></article>
+        </div>
+        <div class="section-heading"><h2>Today's schedule</h2><button class="text-button" data-go="calendar">View calendar</button></div>
+        <div id="todayEvents" class="event-list"></div>
+        <div class="section-heading"><h2>Daily progress</h2><span class="muted small" id="progressLabel">0%</span></div>
+        <div class="progress-track"><div class="progress-fill" id="homeProgress"></div></div>
+        <button class="wide-button secondary-button" data-go="routines">Open daily routines <span>→</span></button>
+      </section>
+
+      <section class="page" id="page-calendar">
+        <div class="intro"><p class="eyebrow">PLAN AHEAD</p><h1>Calendar.</h1><p class="muted">Keep all your commitments in one place.</p></div>
+        <div class="calendar-toolbar">
+          <button class="icon-button" id="prevMonth" aria-label="Previous month">‹</button>
+          <h2 id="monthTitle"></h2>
+          <button class="icon-button" id="nextMonth" aria-label="Next month">›</button>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+        <div class="section-heading"><h2 id="selectedDateTitle">Selected day</h2><span class="muted small" id="selectedCount"></span></div>
+        <div id="selectedEvents" class="event-list"></div>
+        <form id="eventForm" class="form-card">
+          <h2>Add an event</h2>
+          <label>Event name<input id="eventName" maxlength="70" placeholder="e.g. Maths homework" required></label>
+          <div class="form-row">
+            <label>Category
+              <select id="eventType">
+                <option>School</option><option>Workout</option><option>Training</option><option>Study</option><option>Personal</option><option>Other</option>
+              </select>
+            </label>
+            <label>Time<input id="eventTime" type="time" value="16:00" required></label>
+          </div>
+          <label>Date<input id="eventDate" type="date" required></label>
+          <label class="check-line"><input id="eventReminder" type="checkbox"> Remind me 15 minutes before (while the app is open)</label>
+          <button class="wide-button primary-button" type="submit">＋ Add to calendar</button>
+        </form>
+      </section>
+
+      <section class="page" id="page-fitness">
+        <div class="intro"><p class="eyebrow">MOVE WITH PURPOSE</p><h1>Fitness.</h1><p class="muted">Plan your workouts and training sessions.</p></div>
+        <div class="feature-card"><div class="feature-symbol">◉</div><h2>Workouts</h2><p>Schedule strength, running, cardio and recovery sessions.</p><button class="wide-button primary-button" data-add-type="Workout">＋ Schedule a workout</button></div>
+        <div class="feature-card"><div class="feature-symbol">↗</div><h2>Training sessions</h2><p>Keep sport practice and other coached sessions organised.</p><button class="wide-button secondary-button" data-add-type="Training">＋ Schedule training</button></div>
+        <div class="section-heading"><h2>Upcoming fitness</h2></div>
+        <div id="fitnessEvents" class="event-list"></div>
+      </section>
+
+      <section class="page" id="page-routines">
+        <div class="intro"><p class="eyebrow">BUILD CONSISTENCY</p><h1>Routines.</h1><p class="muted">Small actions, repeated often.</p></div>
+        <div class="routine-summary"><div class="summary-row"><strong>Today's progress</strong><strong id="routinePercent">0%</strong></div><div class="progress-track"><div class="progress-fill" id="routineProgress"></div></div></div>
+        <div class="routine-list" id="routineList"></div>
+        <form id="routineForm" class="inline-form"><input id="newRoutine" maxlength="60" placeholder="Add your own routine..." required><button aria-label="Add routine">＋</button></form>
+        <button class="wide-button secondary-button" id="resetRoutines">Reset checklist for today</button>
+      </section>
+
+      <section class="page" id="page-settings">
+        <div class="intro"><p class="eyebrow">MAKE IT YOURS</p><h1>Settings.</h1><p class="muted">Your planner, your preferences.</p></div>
+        <div class="settings-card">
+          <div><strong>Notifications</strong><p class="muted small">Allow browser notifications for reminders.</p></div>
+          <button class="pill-button" id="enableNotifications">Enable</button>
+        </div>
+        <div class="settings-card"><div><strong>App data</strong><p class="muted small">Your events and routines are saved on this device.</p></div><span class="status-dot">Saved locally</span></div>
+        <div class="settings-card"><div><strong>Export your events</strong><p class="muted small">Download a backup of your calendar data.</p></div><button class="pill-button" id="exportData">Export</button></div>
+        <div class="settings-card"><div><strong>Install yourlife</strong><p class="muted small">On iPhone, use Safari's Share menu → Add to Home Screen.</p></div><span class="muted small">iPhone</span></div>
+        <button class="wide-button danger-button" id="clearData">Clear all app data</button>
+        <p class="footer-note">yourlife. · Your personal life organiser</p>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-item selected" data-tab="home"><span>⌂</span><small>Home</small></button>
+      <button class="nav-item" data-tab="calendar"><span>▦</span><small>Calendar</small></button>
+      <button class="nav-item" data-tab="fitness"><span>◉</span><small>Fitness</small></button>
+      <button class="nav-item" data-tab="routines"><span>☷</span><small>Routines</small></button>
+      <button class="nav-item" data-tab="settings"><span>⚙</span><small>Settings</small></button>
+    </nav>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
